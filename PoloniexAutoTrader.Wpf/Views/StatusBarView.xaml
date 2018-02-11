@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="PoloniexAutoTrader.Wpf.Views.StatusBarView" x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvvm="http://schemas.stricq.com/mvvmcommon/"
+             mvvm:ViewModelLocator.ComposedViewModel="StatusBarViewModel"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="24">
+
+  <Grid>
+
+    <StatusBar Height="24" BorderThickness="0,1,0,0" BorderBrush="{StaticResource StatusBarBorderColor}" Background="{StaticResource TabItemUnSelectedGradient}">
+      <StatusBar.ItemsPanel>
+        <ItemsPanelTemplate>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+          </Grid>
+        </ItemsPanelTemplate>
+      </StatusBar.ItemsPanel>
+
+      <StatusBarItem Grid.Column="0">
+      </StatusBarItem>
+
+      <Separator Grid.Column="1" />
+
+      <StatusBarItem Grid.Column="2">
+        <TextBlock Text="{Binding Path=Memory, StringFormat=Memory: {0:N1}MB}" Foreground="White" />
+      </StatusBarItem>
+
+      <Separator Grid.Column="3" />
+
+      <StatusBarItem Grid.Column="4" Width="17" />
+
+    </StatusBar>
+
+  </Grid>
+
+</UserControl>
