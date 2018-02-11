@@ -11,9 +11,6 @@
         <ResourceDictionary Source="Resources/Converters.xaml" />
         <ResourceDictionary Source="Resources/HeaderedContentStyle.xaml" />
 
-        <ResourceDictionary Source="/Telerik.Windows.Themes.Material;component/Themes/System.Windows.xaml"/>
-        <ResourceDictionary Source="/Telerik.Windows.Themes.Material;component/Themes/Telerik.Windows.Controls.xaml"/>
-
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>

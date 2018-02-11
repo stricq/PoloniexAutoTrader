@@ -70,17 +70,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls">
-      <HintPath>..\lib\RCWPF\2018.1.122.45.NoXaml\Telerik.Windows.Controls.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Telerik.Windows.Themes.Material">
-      <HintPath>..\lib\RCWPF\2018.1.122.45.NoXaml\Telerik.Windows.Themes.Material.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -88,8 +83,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controllers\StatusBarController.cs" />
+    <Compile Include="ViewModels\ExchangeViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\StatusBarViewModel.cs" />
+    <Compile Include="Views\ExchangeView.xaml.cs">
+      <DependentUpon>ExchangeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainMenuView.xaml.cs">
       <DependentUpon>MainMenuView.xaml</DependentUpon>
     </Compile>
@@ -119,12 +118,16 @@
     <Compile Include="Mappings\ViewEntityMappingConfiguration.cs" />
     <Compile Include="Messages\Application\AppLoadedMessage.cs" />
     <Compile Include="Messages\Status\StatusTickMessage.cs" />
-    <Compile Include="ViewEntities\SettingsViewEntity.cs" />
+    <Compile Include="ViewEntities\ApplicationSettingsViewEntity.cs" />
     <Compile Include="ViewModels\AutoTraderViewModel.cs" />
     <Compile Include="Views\AutoTraderView.xaml.cs">
       <DependentUpon>AutoTraderView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ExchangeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainMenuView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -172,7 +175,12 @@
       <Name>PoloniexAutoTrader.Repository</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Poloniex.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="License-LGPL.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

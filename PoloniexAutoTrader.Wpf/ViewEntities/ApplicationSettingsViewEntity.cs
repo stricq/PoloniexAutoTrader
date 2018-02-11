@@ -8,7 +8,7 @@ namespace PoloniexAutoTrader.Wpf.ViewEntities {
 
   [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
   [SuppressMessage("ReSharper", "MemberCanBeInternal")]
-  public class SettingsViewEntity : ObservableObject {
+  public class ApplicationSettingsViewEntity : ObservableObject {
 
     #region Private Fields
 

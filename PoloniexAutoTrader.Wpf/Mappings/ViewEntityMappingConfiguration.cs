@@ -18,10 +18,10 @@ namespace PoloniexAutoTrader.Wpf.Mappings {
 
     public void RegisterMappings(IMapperConfigurationExpression config) {
 
-      config.CreateMap<Settings, SettingsViewEntity>().ForMember(dest => dest.AreSettingsChanged, opt => opt.Ignore())
+      config.CreateMap<ApplicationSettings, ApplicationSettingsViewEntity>().ForMember(dest => dest.AreSettingsChanged, opt => opt.Ignore())
                                                       .ForMember(dest => dest.MainWindowState,    opt => opt.ResolveUsing(src => src.Maximized ? WindowState.Maximized : WindowState.Normal));
 
-      config.CreateMap<SettingsViewEntity, Settings>().ForMember(dest => dest.Maximized, opt => opt.ResolveUsing(src => src.MainWindowState == WindowState.Maximized));
+      config.CreateMap<ApplicationSettingsViewEntity, ApplicationSettings>().ForMember(dest => dest.Maximized, opt => opt.ResolveUsing(src => src.MainWindowState == WindowState.Maximized));
     }
 
     #endregion IAutoMapperConfiguration Implementation

@@ -2,7 +2,7 @@
 
 namespace PoloniexAutoTrader.Domain.Models {
 
-  public class Settings {
+  public class ApplicationSettings {
 
     public bool Maximized { get; set; }
 

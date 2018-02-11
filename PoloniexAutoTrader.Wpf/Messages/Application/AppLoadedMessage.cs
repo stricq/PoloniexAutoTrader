@@ -7,7 +7,7 @@ namespace PoloniexAutoTrader.Wpf.Messages.Application {
 
   internal sealed class AppLoadedMessage : ApplicationLoadedMessage {
 
-    public Settings Settings { get; set; }
+    public UserSettings Settings { get; set; }
 
   }
 

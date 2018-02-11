@@ -22,7 +22,7 @@ namespace PoloniexAutoTrader.Wpf.ViewModels {
 
     private RelayCommand<CancelEventArgs> closing;
 
-    private SettingsViewEntity settings;
+    private ApplicationSettingsViewEntity settings;
 
     #endregion Private Fields
 
@@ -38,7 +38,7 @@ namespace PoloniexAutoTrader.Wpf.ViewModels {
       set { SetField(ref closing, value, () => Closing); }
     }
 
-    public SettingsViewEntity Settings {
+    public ApplicationSettingsViewEntity Settings {
       get => settings;
       set { SetField(ref settings, value, () => Settings); }
     }

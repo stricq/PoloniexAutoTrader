@@ -33,7 +33,8 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
 
     private DateTime lastSave = DateTime.Now;
 
-    private Settings settings;
+    private ApplicationSettings appSettings;
+    private        UserSettings userSettings;
 
     private readonly AutoTraderViewModel     viewModel;
     private readonly   MainMenuViewModel menuViewModel;
@@ -41,14 +42,15 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
     private readonly IMessenger messenger;
     private readonly IMapper    mapper;
 
-    private readonly ISettingsRepository settingsRepository;
+    private readonly IApplicationSettingsRepository appSettingsRepository;
+    private readonly IUserSettingsRepository       userSettingsRepository;
 
     #endregion Private Fields
 
     #region Constructor
 
     [ImportingConstructor]
-    public AutoTraderController(AutoTraderViewModel ViewModel, MainMenuViewModel MenuViewModel, IMessenger Messenger, IMapper Mapper, ISettingsRepository SettingsRepository) {
+    public AutoTraderController(AutoTraderViewModel ViewModel, MainMenuViewModel MenuViewModel, IMessenger Messenger, IMapper Mapper, IApplicationSettingsRepository AppSettingsRepository, IUserSettingsRepository UserSettingsRepository) {
       if (Application.Current != null) Application.Current.DispatcherUnhandledException += onCurrentDispatcherUnhandledException;
 
       AppDomain.CurrentDomain.UnhandledException += onDomainUnhandledException;
@@ -65,7 +67,8 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
       messenger = Messenger;
       mapper    = Mapper;
 
-      settingsRepository = SettingsRepository;
+       appSettingsRepository = AppSettingsRepository;
+      userSettingsRepository = UserSettingsRepository;
     }
 
     #endregion Constructor
@@ -73,9 +76,11 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
     #region IController Implementation
 
     public async Task InitializeAsync() {
-      settings = await settingsRepository.LoadSettingsAsync();
+      appSettings = await appSettingsRepository.LoadApplicationSettingsAsync();
 
-      viewModel.Settings = mapper.Map<SettingsViewEntity>(settings);
+      viewModel.Settings = mapper.Map<ApplicationSettingsViewEntity>(appSettings);
+
+      userSettings = await userSettingsRepository.LoadUserSettingsAsync();
 
       registerMessages();
       registerCommands();
@@ -93,9 +98,9 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
 
     private async Task onStatusTick(StatusTickMessage message) {
       if ((DateTime.Now - lastSave).Seconds > 3 && viewModel.Settings.AreSettingsChanged) {
-        mapper.Map(viewModel.Settings, settings);
+        mapper.Map(viewModel.Settings, appSettings);
 
-        await settingsRepository.SaveSettingsAsync(settings);
+        await appSettingsRepository.SaveApplicationSettingsAsync(appSettings);
 
         viewModel.Settings.AreSettingsChanged = false;
 
@@ -118,7 +123,7 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
     private async Task onLoadedExecuteAsync(RoutedEventArgs args) {
       isStartupComplete = true;
 
-      await messenger.SendAsync(new AppLoadedMessage { Settings = settings });
+      await messenger.SendAsync(new AppLoadedMessage { Settings = userSettings });
     }
 
     private void onClosingExecute(CancelEventArgs args) {
@@ -129,9 +134,9 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
       args.Cancel = message.Cancel;
 
       if (!args.Cancel && viewModel.Settings.AreSettingsChanged) {
-        mapper.Map(viewModel.Settings, settings);
+        mapper.Map(viewModel.Settings, appSettings);
 
-        Task.Run(() => settingsRepository.SaveSettingsAsync(settings)).Wait();
+        Task.Run(() => appSettingsRepository.SaveApplicationSettingsAsync(appSettings)).Wait();
       }
     }
 

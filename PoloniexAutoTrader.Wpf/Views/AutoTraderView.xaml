@@ -8,6 +8,7 @@
         mvvm:FrameworkElementBehaviors.LoadedCommand="{Binding Path=Loaded}"
         mvvm:WindowBehaviors.ClosingCommand="{Binding Path=Closing}"
         Title="Poloniex Auto Trader"
+        Icon="/PoloniexAutoTrader;component/Images/Poloniex.ico"
         WindowStartupLocation="Manual" MinWidth="1024" MinHeight="768" ResizeMode="CanResizeWithGrip"
         SnapsToDevicePixels="True" UseLayoutRounding="True"
         FontFamily="Tahoma"
@@ -25,9 +26,9 @@
       </Grid.RowDefinitions>
 
       <v:MainMenuView Grid.Row="0" />
-<!--
-      <v:ContentView Grid.Row="1" />
--->
+
+      <v:ExchangeView Grid.Row="1" />
+
       <v:StatusBarView Grid.Row="2" />
 
     </Grid>

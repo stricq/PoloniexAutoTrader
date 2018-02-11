@@ -13,51 +13,74 @@ using STR.Common.Extensions;
 
 namespace PoloniexAutoTrader.Repository.Services {
 
-  [Export(typeof(ISettingsRepository))]
-  public sealed class SettingsRepository : ISettingsRepository {
+  [Export(typeof(IApplicationSettingsRepository))]
+  [Export(typeof(IUserSettingsRepository))]
+  public sealed class SettingsRepository : IApplicationSettingsRepository, IUserSettingsRepository {
 
     #region ISettingsRepository Implementation
 
-    public async Task<Settings> LoadSettingsAsync() {
-      Settings settings;
+    public async Task<ApplicationSettings> LoadApplicationSettingsAsync() {
+      ApplicationSettings settings = await loadSettingsAsync<ApplicationSettings>(ApplicationSettingsFilename);
 
-      if (await Task.Run(() => File.Exists(Filename))) {
-        settings = await Task.Run(() => JsonConvert.DeserializeObject<Settings>(File.ReadAllText(Filename)));
+      if (settings.WindowW.EqualInPercentRange(0)) {
+        settings.WindowW = 1024;
+        settings.WindowH = 768;
 
-        if (settings.WindowW.EqualInPercentRange(0)) {
-          settings.WindowW = 1024;
-          settings.WindowH = 768;
-
-          settings.WindowX = 100;
-          settings.WindowY = 100;
-        }
+        settings.WindowX = 100;
+        settings.WindowY = 100;
       }
-      else settings = new Settings {
-        WindowW = 1024,
-        WindowH = 768,
-
-        WindowX = 100,
-        WindowY = 100
-      };
 
       return settings;
     }
 
-    public async Task SaveSettingsAsync(Settings Settings) {
-      string json = await Task.Run(() => JsonConvert.SerializeObject(Settings, Formatting.Indented));
-
-      if (!await Task.Run(() => File.Exists(Filename))) await Task.Run(() => Directory.CreateDirectory(Path.GetDirectoryName(Filename)));
-
-      await Task.Run(() => File.WriteAllText(Filename, json));
+    public async Task SaveApplicationSettingsAsync(ApplicationSettings Settings) {
+      await saveSettingsAsync(Settings, ApplicationSettingsFilename);
     }
 
     #endregion ISettingsRepository Implementation
 
+    #region IUserSettingsRepository Implementation
+
+    public async Task<UserSettings> LoadUserSettingsAsync() {
+      return await loadSettingsAsync<UserSettings>(UserSettingsFilename);
+    }
+
+    public async Task SaveUserSettingsAsync(UserSettings Settings) {
+      await saveSettingsAsync(Settings, UserSettingsFilename);
+    }
+
+    #endregion IUserSettingsRepository Implementation
+
     #region Private Properties
 
-    private static string Filename => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"STR Programming Services\Poloniex Auto Trader\Settings.json");
+    private static string ApplicationSettingsFilename => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"STR Programming Services\Poloniex Auto Trader\ApplicationSettings.json");
+
+    private static string UserSettingsFilename => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"STR Programming Services\Poloniex Auto Trader\UserSettings.json");
 
     #endregion Private Properties
+
+    #region Private Methods
+
+    private static async Task<T> loadSettingsAsync<T>(string filename) where T : new() {
+      T settings;
+
+      if (await Task.Run(() => File.Exists(filename))) {
+        settings = await Task.Run(() => JsonConvert.DeserializeObject<T>(File.ReadAllText(filename)));
+      }
+      else settings = new T();
+
+      return settings;
+    }
+
+    private static async Task saveSettingsAsync<T>(T Settings, string filename) {
+      string json = await Task.Run(() => JsonConvert.SerializeObject(Settings, Formatting.Indented));
+
+      if (!await Task.Run(() => File.Exists(filename))) await Task.Run(() => Directory.CreateDirectory(Path.GetDirectoryName(filename)));
+
+      await Task.Run(() => File.WriteAllText(filename, json));
+    }
+
+    #endregion Private Methods
 
   }
 
