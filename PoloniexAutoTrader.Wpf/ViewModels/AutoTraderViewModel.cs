@@ -22,6 +22,8 @@ namespace PoloniexAutoTrader.Wpf.ViewModels {
 
     private RelayCommand<CancelEventArgs> closing;
 
+    private RelayCommand<SizeChangedEventArgs> sizeChanged;
+
     private ApplicationSettingsViewEntity settings;
 
     #endregion Private Fields
@@ -36,6 +38,11 @@ namespace PoloniexAutoTrader.Wpf.ViewModels {
     public RelayCommand<CancelEventArgs> Closing {
       get => closing;
       set { SetField(ref closing, value, () => Closing); }
+    }
+
+    public RelayCommand<SizeChangedEventArgs> SizeChanged {
+      get => sizeChanged;
+      set { SetField(ref sizeChanged, value, () => SizeChanged); }
     }
 
     public ApplicationSettingsViewEntity Settings {

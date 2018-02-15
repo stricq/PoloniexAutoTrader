@@ -17,7 +17,7 @@ namespace PoloniexAutoTrader.Repository.Services {
   [Export(typeof(IUserSettingsRepository))]
   public sealed class SettingsRepository : IApplicationSettingsRepository, IUserSettingsRepository {
 
-    #region ISettingsRepository Implementation
+    #region IApplicationSettingsRepository Implementation
 
     public async Task<ApplicationSettings> LoadApplicationSettingsAsync() {
       ApplicationSettings settings = await loadSettingsAsync<ApplicationSettings>(ApplicationSettingsFilename);
@@ -28,6 +28,8 @@ namespace PoloniexAutoTrader.Repository.Services {
 
         settings.WindowX = 100;
         settings.WindowY = 100;
+
+        settings.SplitterDistance = 225;
       }
 
       return settings;
@@ -37,7 +39,7 @@ namespace PoloniexAutoTrader.Repository.Services {
       await saveSettingsAsync(Settings, ApplicationSettingsFilename);
     }
 
-    #endregion ISettingsRepository Implementation
+    #endregion IApplicationSettingsRepository Implementation
 
     #region IUserSettingsRepository Implementation
 

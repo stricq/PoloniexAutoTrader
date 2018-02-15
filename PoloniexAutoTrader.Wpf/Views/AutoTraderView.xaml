@@ -27,7 +27,22 @@
 
       <v:MainMenuView Grid.Row="0" />
 
-      <v:ExchangeView Grid.Row="1" />
+      <Grid Grid.Row="1" Margin="6">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="6" />
+          <ColumnDefinition Width="{Binding Path=Settings.SplitterDistance}" MinWidth="225" />
+        </Grid.ColumnDefinitions>
+
+        <v:ExchangeView Grid.Column="0" Margin="0,0,6,0" />
+
+        <GridSplitter Grid.Column="1" Margin="0,-6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource GridSplitterGradientLeftRight}" />
+
+        <Grid Grid.Column="2" Margin="6,0,0,0" mvvm:FrameworkElementBehaviors.SizeChangedCommand="{Binding Path=SizeChanged}">
+          <v:MarketsView />
+        </Grid>
+
+      </Grid>
 
       <v:StatusBarView Grid.Row="2" />
 

@@ -117,6 +117,8 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
 
       viewModel.Closing = new RelayCommand<CancelEventArgs>(onClosingExecute);
 
+      viewModel.SizeChanged = new RelayCommand<SizeChangedEventArgs>(onSizeChanged);
+
       menuViewModel.Exit = new RelayCommand(onExitExecute);
     }
 
@@ -138,6 +140,10 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
 
         Task.Run(() => appSettingsRepository.SaveApplicationSettingsAsync(appSettings)).Wait();
       }
+    }
+
+    private void onSizeChanged(SizeChangedEventArgs args) {
+      viewModel.Settings.SplitterDistance = args.NewSize.Width + 6;
     }
 
     private void onExitExecute() {

@@ -10,6 +10,9 @@
 
         <ResourceDictionary Source="Resources/Converters.xaml" />
         <ResourceDictionary Source="Resources/HeaderedContentStyle.xaml" />
+        <ResourceDictionary Source="Resources/ListViewStyle.xaml" />
+        <ResourceDictionary Source="Resources/ScrollViewerStyle.xaml" />
+        <ResourceDictionary Source="Resources/TabItemStyle.xaml" />
 
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>

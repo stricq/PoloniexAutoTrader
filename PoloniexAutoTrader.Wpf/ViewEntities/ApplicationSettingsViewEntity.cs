@@ -22,6 +22,8 @@ namespace PoloniexAutoTrader.Wpf.ViewEntities {
 
     private WindowState mainWindowState;
 
+    private double splitterDistance;
+
     #endregion Private Fields
 
     #region Properties
@@ -54,6 +56,11 @@ namespace PoloniexAutoTrader.Wpf.ViewEntities {
     public WindowState MainWindowState {
       get => mainWindowState;
       set { AreSettingsChanged |= SetField(ref mainWindowState, value, () => MainWindowState); }
+    }
+
+    public double SplitterDistance {
+      get => splitterDistance;
+      set { AreSettingsChanged |= SetField(ref splitterDistance, value, () => SplitterDistance); }
     }
 
     #endregion Properties

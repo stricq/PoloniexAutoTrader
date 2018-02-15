@@ -14,6 +14,8 @@ namespace PoloniexAutoTrader.Domain.Models {
 
     public double WindowY { get; set; }
 
+    public double SplitterDistance { get; set; }
+
   }
 
 }
