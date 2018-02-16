@@ -18,6 +18,10 @@ namespace PoloniexAutoTrader.Wpf.ViewEntities {
 
     private bool isFavorite;
 
+    private bool isChangeUp;
+
+    private bool isChangeDown;
+
     private string currency;
 
     private double price;
@@ -34,6 +38,8 @@ namespace PoloniexAutoTrader.Wpf.ViewEntities {
 
     #region Properties
 
+    public int Id { get; set; }
+
     public RelayCommand<MouseButtonEventArgs> FavoriteClick {
       get => favoriteClick;
       set { SetField(ref favoriteClick, value, () => FavoriteClick); }
@@ -41,7 +47,7 @@ namespace PoloniexAutoTrader.Wpf.ViewEntities {
 
     public bool IsSelected {
       get => isSelected;
-      set { SetField(ref isSelected, value, () => IsSelected); }
+      set { SetField(ref isSelected, value, () => IsSelected, () => IconBackground); }
     }
 
     public bool IsFavorite {
@@ -49,7 +55,19 @@ namespace PoloniexAutoTrader.Wpf.ViewEntities {
       set { SetField(ref isFavorite, value, () => IsFavorite, () => Icon); }
     }
 
+    public bool IsChangeUp {
+      get => isChangeUp;
+      set { SetField(ref isChangeUp, value, () => IsChangeUp); }
+    }
+
+    public bool IsChangeDown {
+      get => isChangeDown;
+      set { SetField(ref isChangeDown, value, () => IsChangeDown); }
+    }
+
     public FontAwesomeIcon Icon => IsFavorite ? FontAwesomeIcon.Star : FontAwesomeIcon.StarOutline;
+
+    public SolidColorBrush IconBackground => new SolidColorBrush(IsSelected ? Color.FromRgb(0xa3, 0x75, 0x14) : Color.FromRgb(0x6f, 0x93, 0x97));
 
     public string Currency {
       get => currency;

@@ -27,12 +27,12 @@
                 <GridViewColumn>
                   <GridViewColumn.HeaderTemplate>
                     <DataTemplate>
-                      <fa:FontAwesome Icon="Star" />
+                      <fa:FontAwesome Icon="Star" Padding="0,2,0,0" />
                     </DataTemplate>
                   </GridViewColumn.HeaderTemplate>
                   <GridViewColumn.CellTemplate>
                     <DataTemplate>
-                      <fa:FontAwesome Icon="{Binding Path=Icon}" mvvm:UIElementBehaviors.PreviewMouseDownCommand="{Binding Path=FavoriteClick}" />
+                      <fa:FontAwesome Icon="{Binding Path=Icon}" mvvm:UIElementBehaviors.PreviewMouseDownCommand="{Binding Path=FavoriteClick}" Padding="0,2,0,0" Foreground="{Binding Path=IconBackground}" Focusable="False" />
                     </DataTemplate>
                   </GridViewColumn.CellTemplate>
                 </GridViewColumn>

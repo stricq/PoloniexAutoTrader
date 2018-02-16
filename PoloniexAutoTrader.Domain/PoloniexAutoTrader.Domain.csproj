@@ -47,14 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Channel.cs" />
     <Compile Include="Contracts\IAutoMapperConfiguration.cs" />
     <Compile Include="Contracts\IApplicationSettingsRepository.cs" />
     <Compile Include="Contracts\IPublicApiService.cs" />
+    <Compile Include="Contracts\IPushApiService.cs" />
     <Compile Include="Contracts\IUserSettingsRepository.cs" />
     <Compile Include="Models\ApplicationSettings.cs" />
     <Compile Include="Models\CurrencyPair.cs" />
     <Compile Include="Models\PublicApi\Currency.cs" />
     <Compile Include="Models\PublicApi\Ticker.cs" />
+    <Compile Include="Models\PushApi\PushMessageBase.cs" />
+    <Compile Include="Models\PushApi\TickerMessage.cs" />
     <Compile Include="Models\UserSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

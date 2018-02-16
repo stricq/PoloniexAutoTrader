@@ -145,12 +145,13 @@
   <Style x:Key="{x:Type ListViewItem}" TargetType="{x:Type ListViewItem}">
     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
     <Setter Property="VerticalContentAlignment" Value="Top" />
+    <Setter Property="Margin" Value="0,0,0,-1" />
     <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ListViewItem}">
-          <Border CornerRadius="3" SnapsToDevicePixels="True" BorderThickness="0" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
-            <GridViewRowPresenter Margin="0,0,0,1" VerticalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+          <Border Name="Border" SnapsToDevicePixels="True" Margin="0,0,0,0" BorderThickness="0,1,0,1" BorderBrush="#273332" Background="{TemplateBinding Background}">
+            <GridViewRowPresenter Margin="0,2,0,3" Panel.ZIndex="0" VerticalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
           </Border>
           <ControlTemplate.Triggers>
 
@@ -159,9 +160,22 @@
             </Trigger>
 
             <Trigger Property="IsSelected" Value="True">
-              <Setter Property="Background" Value="#FF363EF8" />
-              <Setter Property="Foreground" Value="White"/>
+              <Setter TargetName="Border" Property="BorderBrush" Value="#4e3f0b" />
+              <Setter Property="Panel.ZIndex" Value="1" />
+              <Setter Property="Background" Value="#15110b" />
             </Trigger>
+
+            <DataTrigger Binding="{Binding Path=IsChangeDown}" Value="True">
+              <Setter TargetName="Border" Property="BorderBrush" Value="#821d14" />
+              <Setter Property="Panel.ZIndex" Value="2" />
+              <Setter Property="Background" Value="#2c1b1a" />
+            </DataTrigger>
+
+            <DataTrigger Binding="{Binding Path=IsChangeUp}" Value="True">
+              <Setter TargetName="Border" Property="BorderBrush" Value="#15531a" />
+              <Setter Property="Panel.ZIndex" Value="2" />
+              <Setter Property="Background" Value="#15281c" />
+            </DataTrigger>
             <!--
             <MultiTrigger>
               <MultiTrigger.Conditions>

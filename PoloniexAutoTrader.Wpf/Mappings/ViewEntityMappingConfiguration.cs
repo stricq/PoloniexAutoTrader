@@ -6,7 +6,7 @@ using AutoMapper;
 using PoloniexAutoTrader.Domain.Contracts;
 using PoloniexAutoTrader.Domain.Models;
 using PoloniexAutoTrader.Domain.Models.PublicApi;
-
+using PoloniexAutoTrader.Domain.Models.PushApi;
 using PoloniexAutoTrader.Wpf.ViewEntities;
 
 
@@ -31,7 +31,20 @@ namespace PoloniexAutoTrader.Wpf.Mappings {
                                                     .ForMember(dest => dest.Description,   opt => opt.MapFrom(src => src.Currency.Description))
                                                     .ForMember(dest => dest.IsSelected,    opt => opt.Ignore())
                                                     .ForMember(dest => dest.IsFavorite,    opt => opt.Ignore())
-                                                    .ForMember(dest => dest.FavoriteClick, opt => opt.Ignore());
+                                                    .ForMember(dest => dest.FavoriteClick, opt => opt.Ignore())
+                                                    .ForMember(dest => dest.IsChangeUp,    opt => opt.Ignore())
+                                                    .ForMember(dest => dest.IsChangeDown,  opt => opt.Ignore());
+
+      config.CreateMap<TickerMessage, CurrencyViewEntity>().ForMember(dest => dest.Price,         opt => opt.MapFrom(src => src.Last))
+                                                           .ForMember(dest => dest.Volume,        opt => opt.MapFrom(src => src.BaseVolume))
+                                                           .ForMember(dest => dest.Change,        opt => opt.MapFrom(src => src.PercentChange))
+                                                           .ForMember(dest => dest.Currency,      opt => opt.Ignore())
+                                                           .ForMember(dest => dest.Description,   opt => opt.Ignore())
+                                                           .ForMember(dest => dest.IsSelected,    opt => opt.Ignore())
+                                                           .ForMember(dest => dest.IsFavorite,    opt => opt.Ignore())
+                                                           .ForMember(dest => dest.FavoriteClick, opt => opt.Ignore())
+                                                           .ForMember(dest => dest.IsChangeUp,    opt => opt.Ignore())
+                                                           .ForMember(dest => dest.IsChangeDown,  opt => opt.Ignore());
     }
 
     #endregion IAutoMapperConfiguration Implementation

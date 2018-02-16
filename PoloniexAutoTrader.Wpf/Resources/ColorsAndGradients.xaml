@@ -3,9 +3,9 @@
 
   <!-- Colors -->
 
-  <SolidColorBrush x:Key="BackgroundColor" Color="#FF1E1F22" />
+  <SolidColorBrush x:Key="BackgroundColor" Color="#040606" />
 
-  <SolidColorBrush x:Key="ForegroundColor" Color="LightGray" />
+  <SolidColorBrush x:Key="ForegroundColor" Color="#6f9397" />
 
   <SolidColorBrush x:Key="ContentControlBorderColor" Color="#FF363EF8" />
 
@@ -23,6 +23,8 @@
   <SolidColorBrush x:Key="TabItemBorderUnSelectedColor" Color="#FF3A3A3A" />
 
   <SolidColorBrush x:Key="TextBoxBackgroundColor" Color="#FF2E2F34" />
+
+  <SolidColorBrush x:Key="PoloBorderColor" Color="#FF3A3A3A" />
 
   <!-- Gradients -->
 
