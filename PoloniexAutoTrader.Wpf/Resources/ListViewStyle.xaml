@@ -173,30 +173,10 @@
 
             <DataTrigger Binding="{Binding Path=IsChangeUp}" Value="True">
               <Setter TargetName="Border" Property="BorderBrush" Value="#15531a" />
-              <Setter Property="Panel.ZIndex" Value="2" />
+              <Setter Property="Panel.ZIndex" Value="3" />
               <Setter Property="Background" Value="#15281c" />
             </DataTrigger>
-            <!--
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="IsSelected" Value="True" />
-                <Condition Property="Selector.IsSelectionActive" Value="False" />
-              </MultiTrigger.Conditions>
-              <Setter Property="Background" Value="{StaticResource ListItemSelectedInactiveFill}" />
-              <Setter Property="BorderBrush" Value="#FFCFCFCF" />
-            </MultiTrigger>
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="IsSelected" Value="True" />
-                <Condition Property="IsMouseOver" Value="True" />
-              </MultiTrigger.Conditions>
-              <Setter Property="Background" Value="#FF663EF8" />
-              <Setter Property="Foreground" Value="White" />
-            </MultiTrigger>
-            <Trigger Property="IsEnabled" Value="False">
-              <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-            </Trigger>
-            -->
+
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>

@@ -12,6 +12,7 @@ using AutoMapper;
 using PoloniexAutoTrader.Domain.Contracts;
 using PoloniexAutoTrader.Domain.Models.PublicApi;
 using PoloniexAutoTrader.Domain.Models.PushApi;
+
 using PoloniexAutoTrader.Wpf.Messages.Status;
 using PoloniexAutoTrader.Wpf.ViewEntities;
 using PoloniexAutoTrader.Wpf.ViewModels;
@@ -19,6 +20,7 @@ using PoloniexAutoTrader.Wpf.ViewModels;
 using STR.Common.Contracts;
 using STR.Common.Extensions;
 using STR.Common.Messages;
+
 using STR.MvvmCommon;
 using STR.MvvmCommon.Contracts;
 

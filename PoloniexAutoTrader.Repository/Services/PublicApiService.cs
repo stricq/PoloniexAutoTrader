@@ -35,6 +35,8 @@ namespace PoloniexAutoTrader.Repository.Services {
     public PublicApiService(IMapper Mapper) {
       mapper = Mapper;
 
+      ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11;
+
       client = new RestClient(ConfigurationManager.AppSettings["PublicApiUrl"]);
     }
 
