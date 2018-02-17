@@ -7,9 +7,9 @@
 
   <SolidColorBrush x:Key="ForegroundColor" Color="#6f9397" />
 
-  <SolidColorBrush x:Key="ContentControlBorderColor" Color="#FF363EF8" />
+  <SolidColorBrush x:Key="ContentControlBorderColor" Color="#273332" />
 
-  <SolidColorBrush x:Key="StatusBarBorderColor" Color="#FFC4C4C4" />
+  <SolidColorBrush x:Key="StatusBarBorderColor" Color="#031113" />
 
   <SolidColorBrush x:Key="ListItemTransparent"            Color="Transparent" />
   <SolidColorBrush x:Key="ListItemSelectedColor"          Color="#FF363EF8" />
@@ -69,8 +69,8 @@
   </LinearGradientBrush>
 
   <LinearGradientBrush x:Key="MenuGradient" EndPoint="0.5,1" StartPoint="0.5,0">
-    <GradientStop Color="#FF565656" Offset="0" />
-    <GradientStop Color="#FF8F8F8F" Offset="1" />
+    <GradientStop Color="#263232" Offset="0" />
+    <GradientStop Color="#151b1b" Offset="1" />
   </LinearGradientBrush>
 
   <LinearGradientBrush x:Key="ConfiguredLevelGradient" EndPoint="0.5,1" StartPoint="0.5,0">

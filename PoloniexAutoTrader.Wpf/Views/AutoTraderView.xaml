@@ -11,7 +11,7 @@
         Icon="/PoloniexAutoTrader;component/Images/Poloniex.ico"
         WindowStartupLocation="Manual" MinWidth="1024" MinHeight="768" ResizeMode="CanResizeWithGrip"
         SnapsToDevicePixels="True" UseLayoutRounding="True"
-        FontFamily="Tahoma"
+        FontFamily="Roboto"
         Background="{StaticResource BackgroundColor}"
         Width="{Binding Path=Settings.WindowW, Mode=TwoWay}" Height="{Binding Path=Settings.WindowH, Mode=TwoWay}"
          Left="{Binding Path=Settings.WindowX, Mode=TwoWay}"    Top="{Binding Path=Settings.WindowY, Mode=TwoWay}"

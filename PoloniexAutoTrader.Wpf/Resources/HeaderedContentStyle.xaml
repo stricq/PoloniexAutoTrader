@@ -10,8 +10,8 @@
               <RowDefinition Height="Auto" />
               <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource HeaderGradient}" BorderThickness="1,1,1,0" CornerRadius="6,6,0,0" BorderBrush="{StaticResource ContentControlBorderColor}">
-              <ContentPresenter ContentSource="Header" Margin="6" HorizontalAlignment="Center" TextBlock.FontSize="13" TextBlock.Foreground="White" />
+            <Border Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource ContentControlBorderColor}" BorderThickness="1,1,1,0" BorderBrush="{StaticResource ContentControlBorderColor}">
+              <ContentPresenter ContentSource="Header" Margin="6" />
             </Border>
             <Border Grid.Row="1" Padding="6" HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="1" BorderBrush="{StaticResource ContentControlBorderColor}">
               <ContentPresenter ContentSource="Content"/>
@@ -31,8 +31,8 @@
               <RowDefinition Height="Auto" />
               <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Border Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource HeaderGradient}" BorderThickness="1,1,1,0" CornerRadius="6,6,0,0" BorderBrush="{StaticResource ContentControlBorderColor}">
-              <ContentPresenter ContentSource="Header" Margin="6" HorizontalAlignment="Center" TextBlock.FontSize="13" TextBlock.Foreground="White" />
+            <Border Grid.Row="0" HorizontalAlignment="Stretch" Background="{StaticResource ContentControlBorderColor}" BorderThickness="1,1,1,0" BorderBrush="{StaticResource ContentControlBorderColor}">
+              <ContentPresenter ContentSource="Header" Margin="6" />
             </Border>
             <Border Grid.Row="1" HorizontalAlignment="Stretch" Background="Transparent" BorderThickness="1" BorderBrush="{StaticResource ContentControlBorderColor}">
               <ContentPresenter ContentSource="Content"/>

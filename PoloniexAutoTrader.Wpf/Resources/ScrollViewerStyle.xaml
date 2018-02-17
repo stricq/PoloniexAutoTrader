@@ -14,18 +14,18 @@
 			  <RowDefinition Height="Auto"/>
 		  </Grid.RowDefinitions>
 
-		  <Rectangle x:Name="Corner" Grid.Row="1" Grid.Column="1" Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+		  <Rectangle x:Name="Corner" Grid.Row="1" Grid.Column="1" Fill="{StaticResource ContentControlBorderColor}" />
 
 	    <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Margin="{TemplateBinding Padding}" />
 
-	    <ScrollBar x:Name="PART_VerticalScrollBar"   Grid.Row="0" Grid.Column="1" AutomationProperties.AutomationId="VerticalScrollBar"   Cursor="Arrow" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}" Width="8"/>
+	    <ScrollBar x:Name="PART_VerticalScrollBar"   Grid.Row="0" Grid.Column="1" AutomationProperties.AutomationId="VerticalScrollBar"  Background="{StaticResource ContentControlBorderColor}"  Cursor="Arrow" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}" Width="8"/>
 		  <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.Row="1" Grid.Column="0" AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" Maximum="{TemplateBinding ScrollableWidth}"  Minimum="0" Orientation="Horizontal" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}" Height="8"/>
 	  </Grid>
   </ControlTemplate>
 
   <Style x:Key="ScrollBarPageButton" TargetType="{x:Type RepeatButton}">
 	  <Setter Property="OverridesDefaultStyle" Value="true"/>
-	  <Setter Property="Background" Value="Transparent"/>
+	  <Setter Property="Background" Value="{StaticResource ContentControlBorderColor}"/>
 	  <Setter Property="Focusable" Value="false"/>
 	  <Setter Property="IsTabStop" Value="false"/>
 	  <Setter Property="Template">
@@ -50,11 +50,11 @@
 						  <ColumnDefinition Width="4" />
 					  </Grid.ColumnDefinitions>
 
-				    <Ellipse Grid.Column="0" Grid.ColumnSpan="2" Fill="#FF8E45BF" />
+				    <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Fill="#6f9397" />
 
-					  <Rectangle Grid.Column="1" Grid.ColumnSpan="3" Fill="{StaticResource ToggleHighlightGradientHorizontal}" />
+					  <Rectangle Grid.Column="1" Grid.ColumnSpan="3" Fill="#6f9397" />
 
-					  <Ellipse Grid.Column="3" Grid.ColumnSpan="2" Fill="#FF5A2C74" />
+					  <Rectangle Grid.Column="3" Grid.ColumnSpan="2" Fill="#6f9397" />
 				  </Grid>
 			  </ControlTemplate>
 		  </Setter.Value>
@@ -74,11 +74,11 @@
 						  <RowDefinition Height="4" />
 					  </Grid.RowDefinitions>
 
-				    <Ellipse Grid.Row="0" Grid.RowSpan="2" Fill="#FF8E45BF" />
+				    <Rectangle Grid.Row="0" Grid.RowSpan="2" Fill="#6f9397" />
 
-				    <Rectangle Grid.Row="1" Grid.RowSpan="3" Fill="{StaticResource ToggleHighlightGradient}" />
+				    <Rectangle Grid.Row="1" Grid.RowSpan="3" Fill="#6f9397" />
 
-				    <Ellipse Grid.Row="3" Grid.RowSpan="2" Fill="#FF5A2C74" />
+				    <Rectangle Grid.Row="3" Grid.RowSpan="2" Fill="#6f9397" />
 				  </Grid>
 			  </ControlTemplate>
 		  </Setter.Value>
@@ -89,8 +89,8 @@
 	  <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
 	  <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
 	  <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-	  <Setter Property="Width" Value="10"/>
-	  <Setter Property="MinWidth" Value="10"/>
+	  <Setter Property="Width" Value="12"/>
+	  <Setter Property="MinWidth" Value="12"/>
 	  <Setter Property="Template">
 		  <Setter.Value>
 			  <ControlTemplate TargetType="{x:Type ScrollBar}">
@@ -109,7 +109,7 @@
 							  <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource ScrollBarPageButton}" />
 						  </Track.IncreaseRepeatButton>
 						  <Track.Thumb>
-							  <Thumb Style="{DynamicResource VerticalThumb}" mwt:ScrollChrome.ScrollGlyph="VerticalGripper" Width="8" />
+							  <Thumb Style="{DynamicResource VerticalThumb}" mwt:ScrollChrome.ScrollGlyph="VerticalGripper" Width="10" />
 						  </Track.Thumb>
 					  </Track>
 				  </Grid>
@@ -120,8 +120,8 @@
 		  <Trigger Property="Orientation" Value="Horizontal">
 			  <Setter Property="Width" Value="Auto"/>
 			  <Setter Property="MinWidth" Value="0"/>
-			  <Setter Property="Height" Value="10"/>
-			  <Setter Property="MinHeight" Value="10"/>
+			  <Setter Property="Height" Value="12"/>
+			  <Setter Property="MinHeight" Value="12"/>
 			  <Setter Property="Template">
 				  <Setter.Value>
 					  <ControlTemplate TargetType="{x:Type ScrollBar}">
@@ -140,7 +140,7 @@
 									  <RepeatButton Command="{x:Static ScrollBar.PageRightCommand}" Style="{StaticResource ScrollBarPageButton}" />
 								  </Track.IncreaseRepeatButton>
 								  <Track.Thumb>
-									  <Thumb mwt:ScrollChrome.ScrollGlyph="HorizontalGripper" Style="{DynamicResource HorizontalThumb}" Height="8" />
+									  <Thumb mwt:ScrollChrome.ScrollGlyph="HorizontalGripper" Style="{DynamicResource HorizontalThumb}" Height="10" />
 								  </Track.Thumb>
 							  </Track>
 						  </Grid>

@@ -8,11 +8,34 @@
              mvvm:ViewModelLocator.ComposedViewModel="MarketsViewModel"
              mc:Ignorable="d" d:DesignWidth="225" d:DesignHeight="768">
 
-  <HeaderedContentControl Header="Markets" Style="{StaticResource TallHeaderedContentStyle}">
-    <TabControl Padding="0" ItemsSource="{Binding Path=MarketTabs}" IsSynchronizedWithCurrentItem="True" Background="{StaticResource BackgroundColor}" BorderThickness="0,1,0,0" BorderBrush="{StaticResource ContentControlBorderColor}">
-      <TabControl.Resources>
-        <Style TargetType="TabItem" BasedOn="{StaticResource TabItemStyle}" />
-      </TabControl.Resources>
+  <HeaderedContentControl Style="{StaticResource TallHeaderedContentStyle}">
+    <HeaderedContentControl.HeaderTemplate>
+      <DataTemplate>
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+
+          <TextBlock Grid.Column="0" Text="MARKETS" FontSize="22" Foreground="{StaticResource ForegroundColor}" VerticalAlignment="Center" />
+
+          <CheckBox Grid.Column="1" Background="Transparent" Foreground="{StaticResource ForegroundColor}" BorderBrush="{StaticResource ForegroundColor}" VerticalAlignment="Center">
+            <CheckBox.ContentTemplate>
+              <DataTemplate>
+                <TextBlock Margin="4,0">
+                  <Run Text="show" />
+                  <fa:FontAwesome Icon="Star" />
+                  <Run Text="only" />
+                </TextBlock>
+              </DataTemplate>
+            </CheckBox.ContentTemplate>
+          </CheckBox>
+        </Grid>
+      </DataTemplate>
+    </HeaderedContentControl.HeaderTemplate>
+
+    <TabControl Padding="0" ItemsSource="{Binding Path=MarketTabs}" IsSynchronizedWithCurrentItem="True" Background="{StaticResource BackgroundColor}" BorderThickness="0,3,0,0" BorderBrush="#a17924">
       <TabControl.ItemTemplate>
         <DataTemplate>
           <TextBlock Text="{Binding Path=Name}" />
