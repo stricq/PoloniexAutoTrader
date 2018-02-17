@@ -126,6 +126,8 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
     private static void onFavoriteClick(MouseButtonEventArgs args) {
       if (args.LeftButton == MouseButtonState.Pressed && args.Source is FrameworkElement fa && fa.DataContext is CurrencyViewEntity cve) {
         cve.IsFavorite = !cve.IsFavorite;
+
+        args.Handled = true;
       }
     }
 
