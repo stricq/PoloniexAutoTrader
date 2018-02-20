@@ -5,10 +5,11 @@
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mvvm="http://schemas.stricq.com/mvvmcommon/"
+             xmlns:xtck="http://schemas.xceed.com/wpf/xaml/toolkit"
              mvvm:ViewModelLocator.ComposedViewModel="MarketsViewModel"
              mc:Ignorable="d" d:DesignWidth="225" d:DesignHeight="768">
 
-  <HeaderedContentControl Style="{StaticResource TallHeaderedContentStyle}">
+  <HeaderedContentControl Header="{Binding}" Style="{StaticResource TallHeaderedContentStyle}">
     <HeaderedContentControl.HeaderTemplate>
       <DataTemplate>
         <Grid>
@@ -20,7 +21,7 @@
 
           <TextBlock Grid.Column="0" Text="MARKETS" FontSize="22" Foreground="{StaticResource ForegroundColor}" VerticalAlignment="Center" />
 
-          <CheckBox Grid.Column="1" Background="Transparent" Foreground="{StaticResource ForegroundColor}" BorderBrush="{StaticResource ForegroundColor}" VerticalAlignment="Center">
+          <CheckBox Grid.Column="1" Background="Transparent" IsChecked="{Binding Path=ShowFavorites}" Foreground="{StaticResource ForegroundColor}" BorderBrush="{StaticResource ForegroundColor}" VerticalAlignment="Center">
             <CheckBox.ContentTemplate>
               <DataTemplate>
                 <TextBlock Margin="4,0">
@@ -31,6 +32,18 @@
               </DataTemplate>
             </CheckBox.ContentTemplate>
           </CheckBox>
+
+          <Border Grid.Column="2" BorderThickness="1" BorderBrush="#404d4d">
+            <xtck:WatermarkTextBox Width="100" Height="26" Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Background="{StaticResource BackgroundColor}" Foreground="{StaticResource ForegroundColor}" BorderThickness="0" mvvm:UIElementBehaviors.Focus="{Binding Path=FocusSearch}">
+              <xtck:WatermarkTextBox.Watermark>
+                <StackPanel Orientation="Horizontal">
+                  <fa:FontAwesome Icon="Search" Padding="2,2,0,0" Foreground="{StaticResource ContentControlBorderColor}" />
+                  <TextBlock Text="Filter (Ctrl+F)" Margin="4,0,0,0" Foreground="{StaticResource ContentControlBorderColor}" />
+                </StackPanel>
+              </xtck:WatermarkTextBox.Watermark>
+            </xtck:WatermarkTextBox>
+          </Border>
+
         </Grid>
       </DataTemplate>
     </HeaderedContentControl.HeaderTemplate>

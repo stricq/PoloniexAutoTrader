@@ -96,8 +96,6 @@ namespace PoloniexAutoTrader.Repository.Services {
     }
 
     private void convert(string message) {
-      Console.WriteLine(message);
-
       JArray msg = JArray.Parse(message);
 
       if (msg.Count > 1 && msg[1].Type != JTokenType.Null && msg[1].Value<long>() == 1) return;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,9 +11,10 @@ using System.Windows.Input;
 using AutoMapper;
 
 using PoloniexAutoTrader.Domain.Contracts;
+using PoloniexAutoTrader.Domain.Models;
 using PoloniexAutoTrader.Domain.Models.PublicApi;
 using PoloniexAutoTrader.Domain.Models.PushApi;
-
+using PoloniexAutoTrader.Wpf.Messages.Application;
 using PoloniexAutoTrader.Wpf.Messages.Status;
 using PoloniexAutoTrader.Wpf.ViewEntities;
 using PoloniexAutoTrader.Wpf.ViewModels;
@@ -32,11 +34,17 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
 
     #region Private Fields
 
+    private bool areSettingsChanged;
+
+    private DateTime lastSettingsSave;
+
     private DateTime lastHeartbeat;
 
     private List<Ticker> tickers;
 
     private List<Currency> currencies;
+
+    private UserSettings settings;
 
     private readonly MarketsViewModel viewModel;
 
@@ -50,12 +58,14 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
 
     private readonly IPushApiService pushApiService;
 
+    private readonly IUserSettingsRepository settingsRepository;
+
     #endregion Private Fields
 
     #region Constructor
 
     [ImportingConstructor]
-    public MarketsController(MarketsViewModel ViewModel, IAsyncService AsyncService, IMessenger Messenger, IMapper Mapper, IPublicApiService PublicApiService, IPushApiService PushApiService) {
+    public MarketsController(MarketsViewModel ViewModel, IAsyncService AsyncService, IMessenger Messenger, IMapper Mapper, IPublicApiService PublicApiService, IPushApiService PushApiService, IUserSettingsRepository SettingsRepository) {
       viewModel = ViewModel;
 
       asyncService = AsyncService;
@@ -66,6 +76,8 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
       publicApiService = PublicApiService;
 
       pushApiService = PushApiService;
+
+      settingsRepository = SettingsRepository;
     }
 
     #endregion Constructor
@@ -88,13 +100,21 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
                                                 .OrderBy(mtvm => mtvm.Name)
                                                 .ToList();
 
-      markets.SelectMany(market => market.Currencies).ForEach(currency => currency.FavoriteClick = new RelayCommand<MouseButtonEventArgs>(onFavoriteClick));
+      markets.ForEach(market => market.PropertyChanged += onMarketTabViewModelPropertyChanged);
+
+      markets.SelectMany(market => market.Currencies).ForEach(currency => {
+        currency.FavoriteClick = new RelayCommand<MouseButtonEventArgs>(onFavoriteClick);
+
+        currency.PropertyChanged += onCurrencyViewEntityPropertyChanged;
+      });
 
       viewModel.MarketTabs = new ObservableCollection<MarketTabViewModel>(markets);
 
       await pushApiService.SubscribeToTickerEvents(onTickerEventCallback);
 
       lastHeartbeat = DateTime.Now;
+
+      viewModel.PropertyChanged += onMarketsViewModelPropertyChanged;
 
       registerMessages();
     }
@@ -104,17 +124,57 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
     #region Messages
 
     private void registerMessages() {
+      messenger.Register<AppLoadedMessage>(this, onAppLoaded);
+
       messenger.RegisterAsync<StatusTickMessage>(this, onStatusTickAsync);
+
+      messenger.Register<MarketSearchMessage>(this, onMarketSearch);
 
       messenger.Register<ApplicationClosingMessage>(this, onApplicationClosing);
     }
 
+    private void onAppLoaded(AppLoadedMessage message) {
+      settings = message.Settings;
+
+      MarketTabViewModel market = viewModel.MarketTabs.SingleOrDefault(m => m.Name == settings.SelectedMarket);
+
+      if (market != null) market.IsSelected = true;
+      else viewModel.MarketTabs[0].IsSelected = true;
+
+      List<CurrencyViewEntity> currencyEntities = viewModel.MarketTabs.SelectMany(m => m.Currencies).ToList();
+
+      CurrencyViewEntity cve = currencyEntities.SingleOrDefault(currency => currency.Id == settings.SelectedCurrency);
+
+      if (cve != null) cve.IsSelected = true;
+      else {
+        if (viewModel.ShowFavorites) cve = currencyEntities.FirstOrDefault(currency => currency.IsFavorite);
+
+        if (cve == null) viewModel.MarketTabs[0].Currencies[0].IsSelected = true;
+      }
+
+      currencyEntities.ForEach(currency => currency.IsFavorite = settings.Favorites.Contains(currency.Id));
+
+      viewModel.ShowFavorites = settings.ShowFavorites;
+    }
+
     private async Task onStatusTickAsync(StatusTickMessage message) {
+      if ((DateTime.Now - lastSettingsSave).TotalSeconds >= 3 && areSettingsChanged) {
+        await settingsRepository.SaveUserSettingsAsync(settings);
+
+        areSettingsChanged = false;
+
+        lastSettingsSave = DateTime.Now;
+      }
+
       if ((DateTime.Now - lastHeartbeat).TotalSeconds >= 60) {
         await pushApiService.SendHeartbeat();
 
-        lastHeartbeat = DateTime.Now;;
+        lastHeartbeat = DateTime.Now;
       }
+    }
+
+    private void onMarketSearch(MarketSearchMessage message) {
+      viewModel.FocusSearch();
     }
 
     private void onApplicationClosing(ApplicationClosingMessage message) {
@@ -125,9 +185,80 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
 
     #region Private Methods
 
-    private static void onFavoriteClick(MouseButtonEventArgs args) {
+    private void onMarketsViewModelPropertyChanged(object sender, PropertyChangedEventArgs args) {
+      List<CurrencyViewEntity> currencyEntities = viewModel.MarketTabs.SelectMany(market => market.Currencies).ToList();
+
+      switch(args.PropertyName) {
+        case "ShowFavorites": {
+          if (viewModel.ShowFavorites) {
+            viewModel.Filter = String.Empty;
+
+            currencyEntities.ForEach(currency => currency.IsVisible = currency.IsFavorite);
+          }
+          else currencyEntities.ForEach(currency => currency.IsVisible = true);
+
+          settings.ShowFavorites = viewModel.ShowFavorites;
+
+          areSettingsChanged = true;
+
+          break;
+        }
+        case "Filter": {
+          if (!String.IsNullOrEmpty(viewModel.Filter)) {
+            viewModel.ShowFavorites = false;
+
+            currencyEntities.ForEach(currency => currency.IsVisible = currency.Currency.ToLowerInvariant().Contains(viewModel.Filter.ToLowerInvariant())
+                                                                   || currency.Description.ToLowerInvariant().Contains(viewModel.Filter.ToLowerInvariant()));
+          }
+          else currencyEntities.ForEach(currency => currency.IsVisible = true);
+
+          break;
+        }
+      }
+    }
+
+    private void onMarketTabViewModelPropertyChanged(object sender, PropertyChangedEventArgs args) {
+      if (!(sender is MarketTabViewModel market) || settings == null) return;
+
+      switch(args.PropertyName) {
+        case "IsSelected": {
+          if (market.IsSelected && settings.SelectedMarket != market.Name) {
+            settings.SelectedMarket = market.Name;
+
+            areSettingsChanged = true;
+          }
+
+          break;
+        }
+      }
+    }
+
+    private void onCurrencyViewEntityPropertyChanged(object sender, PropertyChangedEventArgs args) {
+      if (!(sender is CurrencyViewEntity cve)) return;
+
+      switch(args.PropertyName) {
+        case "IsSelected": {
+          if (cve.IsSelected && settings.SelectedCurrency != cve.Id) {
+            settings.SelectedCurrency = cve.Id;
+
+            areSettingsChanged = true;
+          }
+
+          break;
+        }
+      }
+    }
+
+    private void onFavoriteClick(MouseButtonEventArgs args) {
       if (args.LeftButton == MouseButtonState.Pressed && args.Source is FrameworkElement fa && fa.DataContext is CurrencyViewEntity cve) {
         cve.IsFavorite = !cve.IsFavorite;
+
+        if (settings.Favorites == null) settings.Favorites = new List<int>();
+
+        if (cve.IsFavorite) settings.Favorites.Add(cve.Id);
+        else settings.Favorites.Remove(cve.Id);
+
+        areSettingsChanged = true;
 
         args.Handled = true;
       }

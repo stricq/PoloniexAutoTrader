@@ -119,6 +119,8 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
 
       viewModel.SizeChanged = new RelayCommand<SizeChangedEventArgs>(onSizeChanged);
 
+      viewModel.MarketSearch = new RelayCommand(onMarketSearch);
+
       menuViewModel.Exit = new RelayCommand(onExitExecute);
     }
 
@@ -144,6 +146,10 @@ namespace PoloniexAutoTrader.Wpf.Controllers {
 
     private void onSizeChanged(SizeChangedEventArgs args) {
       viewModel.Settings.SplitterDistance = args.NewSize.Width + 6;
+    }
+
+    private void onMarketSearch() {
+      messenger.Send(new MarketSearchMessage());
     }
 
     private void onExitExecute() {

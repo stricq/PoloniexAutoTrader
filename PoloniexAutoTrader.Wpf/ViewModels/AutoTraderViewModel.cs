@@ -26,6 +26,8 @@ namespace PoloniexAutoTrader.Wpf.ViewModels {
 
     private ApplicationSettingsViewEntity settings;
 
+    private RelayCommand marketSearch;
+
     #endregion Private Fields
 
     #region Properties
@@ -48,6 +50,11 @@ namespace PoloniexAutoTrader.Wpf.ViewModels {
     public ApplicationSettingsViewEntity Settings {
       get => settings;
       set { SetField(ref settings, value, () => Settings); }
+    }
+
+    public RelayCommand MarketSearch {
+      get => marketSearch;
+      set { SetField(ref marketSearch, value, () => MarketSearch); }
     }
 
     #endregion Properties

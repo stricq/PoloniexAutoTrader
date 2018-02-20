@@ -29,6 +29,7 @@ namespace PoloniexAutoTrader.Wpf.Mappings {
                                                     .ForMember(dest => dest.Volume,        opt => opt.MapFrom(src => src.BaseVolume))
                                                     .ForMember(dest => dest.Change,        opt => opt.MapFrom(src => src.PercentChange))
                                                     .ForMember(dest => dest.Description,   opt => opt.MapFrom(src => src.Currency.Description))
+                                                    .ForMember(dest => dest.IsVisible,     opt => opt.UseValue(true))
                                                     .ForMember(dest => dest.IsSelected,    opt => opt.Ignore())
                                                     .ForMember(dest => dest.IsFavorite,    opt => opt.Ignore())
                                                     .ForMember(dest => dest.FavoriteClick, opt => opt.Ignore())
@@ -44,7 +45,8 @@ namespace PoloniexAutoTrader.Wpf.Mappings {
                                                            .ForMember(dest => dest.IsFavorite,    opt => opt.Ignore())
                                                            .ForMember(dest => dest.FavoriteClick, opt => opt.Ignore())
                                                            .ForMember(dest => dest.IsChangeUp,    opt => opt.Ignore())
-                                                           .ForMember(dest => dest.IsChangeDown,  opt => opt.Ignore());
+                                                           .ForMember(dest => dest.IsChangeDown,  opt => opt.Ignore())
+                                                           .ForMember(dest => dest.IsVisible,     opt => opt.Ignore());
     }
 
     #endregion IAutoMapperConfiguration Implementation

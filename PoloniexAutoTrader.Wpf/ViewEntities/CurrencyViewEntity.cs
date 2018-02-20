@@ -22,6 +22,8 @@ namespace PoloniexAutoTrader.Wpf.ViewEntities {
 
     private bool isChangeDown;
 
+    private bool isVisible;
+
     private string currency;
 
     private double price;
@@ -63,6 +65,11 @@ namespace PoloniexAutoTrader.Wpf.ViewEntities {
     public bool IsChangeDown {
       get => isChangeDown;
       set { SetField(ref isChangeDown, value, () => IsChangeDown); }
+    }
+
+    public bool IsVisible {
+      get => isVisible;
+      set { SetField(ref isVisible, value, () => IsVisible); }
     }
 
     public FontAwesomeIcon Icon => IsFavorite ? FontAwesomeIcon.Star : FontAwesomeIcon.StarOutline;

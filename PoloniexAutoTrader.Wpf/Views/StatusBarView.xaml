@@ -9,7 +9,7 @@
 
   <Grid>
 
-    <StatusBar Height="24" BorderThickness="0,1,0,0" BorderBrush="{StaticResource StatusBarBorderColor}" Background="{StaticResource TabItemUnSelectedGradient}">
+    <StatusBar Height="24" BorderThickness="0,1,0,0" BorderBrush="{StaticResource StatusBarBorderColor}" Background="{StaticResource StatusBarGradient}">
       <StatusBar.ItemsPanel>
         <ItemsPanelTemplate>
           <Grid>
@@ -30,7 +30,7 @@
       <Separator Grid.Column="1" />
 
       <StatusBarItem Grid.Column="2">
-        <TextBlock Text="{Binding Path=Memory, StringFormat=Memory: {0:N1}MB}" Foreground="White" />
+        <TextBlock Text="{Binding Path=Memory, StringFormat=Memory: {0:N1}MB}" Foreground="{StaticResource ForegroundColor}" />
       </StatusBarItem>
 
       <Separator Grid.Column="3" />

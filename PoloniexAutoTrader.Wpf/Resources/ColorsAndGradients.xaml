@@ -73,6 +73,11 @@
     <GradientStop Color="#151b1b" Offset="1" />
   </LinearGradientBrush>
 
+  <LinearGradientBrush x:Key="StatusBarGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+    <GradientStop Color="#151b1b" Offset="0" />
+    <GradientStop Color="#263232" Offset="1" />
+  </LinearGradientBrush>
+
   <LinearGradientBrush x:Key="ConfiguredLevelGradient" EndPoint="0.5,1" StartPoint="0.5,0">
     <GradientStop Color="#008F8F" Offset="0" />
     <GradientStop Color="#005656" Offset="1" />

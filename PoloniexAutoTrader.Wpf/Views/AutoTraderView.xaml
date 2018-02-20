@@ -17,6 +17,10 @@
          Left="{Binding Path=Settings.WindowX, Mode=TwoWay}"    Top="{Binding Path=Settings.WindowY, Mode=TwoWay}"
         WindowState="{Binding Path=Settings.MainWindowState, Mode=TwoWay}">
 
+  <Window.InputBindings>
+    <KeyBinding Modifiers="Control" Key="F" Command="{Binding Path=MarketSearch}" />
+  </Window.InputBindings>
+
   <Grid>
     <Grid>
       <Grid.RowDefinitions>
@@ -30,13 +34,13 @@
       <Grid Grid.Row="1" Margin="6">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*" />
-          <ColumnDefinition Width="6" />
-          <ColumnDefinition Width="{Binding Path=Settings.SplitterDistance}" MinWidth="225" />
+          <ColumnDefinition Width="4" />
+          <ColumnDefinition Width="{Binding Path=Settings.SplitterDistance}" MinWidth="450" />
         </Grid.ColumnDefinitions>
 
         <v:ExchangeView Grid.Column="0" Margin="0,0,6,0" />
 
-        <GridSplitter Grid.Column="1" Margin="0,-6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource GridSplitterGradientLeftRight}" />
+        <GridSplitter Grid.Column="1" Margin="0,-7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource ContentControlBorderColor}" />
 
         <Grid Grid.Column="2" Margin="6,0,0,0" mvvm:FrameworkElementBehaviors.SizeChangedCommand="{Binding Path=SizeChanged}">
           <v:MarketsView />

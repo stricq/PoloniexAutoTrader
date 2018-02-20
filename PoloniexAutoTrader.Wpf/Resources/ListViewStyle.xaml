@@ -154,6 +154,10 @@
           </Border>
           <ControlTemplate.Triggers>
 
+            <DataTrigger Binding="{Binding Path=IsVisible}" Value="False">
+              <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+
             <Trigger Property="IsMouseOver" Value="True">
               <Setter TargetName="Border" Property="BorderBrush" Value="#406464" />
               <Setter Property="Panel.ZIndex" Value="1" />
