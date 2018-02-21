@@ -105,6 +105,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\GridViewBehaviors.cs" />
     <Compile Include="Controllers\MarketsController.cs" />
     <Compile Include="Controllers\StatusBarController.cs" />
     <Compile Include="Messages\Application\MarketSearchMessage.cs" />
@@ -126,6 +127,10 @@
     <Compile Include="Views\StatusBarView.xaml.cs">
       <DependentUpon>StatusBarView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Resources\CheckBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\ColorsAndGradients.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

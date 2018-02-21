@@ -8,6 +8,7 @@
 
         <ResourceDictionary Source="Resources/ColorsAndGradients.xaml" />
 
+        <ResourceDictionary Source="Resources/CheckBoxStyle.xaml" />
         <ResourceDictionary Source="Resources/Converters.xaml" />
         <ResourceDictionary Source="Resources/HeaderedContentStyle.xaml" />
         <ResourceDictionary Source="Resources/ListViewStyle.xaml" />
